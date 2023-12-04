@@ -6,7 +6,7 @@ import {
   GestureResponderEvent,
 } from "react-native";
 import * as Haptics from "expo-haptics";
-import { Button } from "expo-ui-kit";
+import { Button, ButtonProps } from "expo-ui-kit";
 
 import theme from "../constants/theme";
 
@@ -18,7 +18,7 @@ type CustomButtonProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-const CustomButton: React.FC<CustomButtonProps> = ({
+const CustomButton: React.FC<CustomButtonProps & ButtonProps> = ({
   children,
   icon,
   haptic = true,

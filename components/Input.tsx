@@ -1,6 +1,6 @@
 import React, { useState, ReactNode } from "react";
 import { TouchableOpacity, StyleProp, ViewStyle } from "react-native";
-import { Input, Block } from "expo-ui-kit";
+import { Input, Block, InputProps } from "expo-ui-kit";
 
 import Icon from "./Icon";
 import { theme, COLORS } from "../constants";
@@ -52,23 +52,21 @@ type CustomInputProps = {
   children?: ReactNode;
   icon?: ReactNode;
   style?: StyleProp<ViewStyle>;
-  secureTextEntry?: boolean;
-  validation?: boolean;
+  validation?: boolean
   value?: string;
   [key: string]: any; // For additional props passed to Input component
 };
 
-const CustomInput: React.FC<CustomInputProps> = ({
+const CustomInput: React.FC<CustomInputProps & InputProps> = ({
   flex = 1,
   children,
   icon,
   style,
   value,
+  validation=false,
   ...props
 }) => {
-  const [showPassword, setShowPassword] = useState(
-    Boolean(props.secureTextEntry)
-  );
+  const [showPassword, setShowPassword] = useState<boolean>(props.secureTextEntry || false);
   const hasSpecialProps = Object.keys(props).some((p) =>
     ["secureTextEntry", "validation"].includes(p)
   );
@@ -85,8 +83,8 @@ const CustomInput: React.FC<CustomInputProps> = ({
         theme={theme}
         {...props}
         style={inputStyles}
-        secureTextEntry={showPassword}
-        value={value} // Pass value to the Input component
+        // secureTextEntry={showPassword}
+        //value={value} Pass value to the Input component
       />
       {props.secureTextEntry && (
         <TogglePassword
@@ -94,7 +92,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
           onPress={() => setShowPassword(!showPassword)}
         />
       )}
-      <Valid value={value || ""} {...props} /> // Ensure value is passed to
+      <Valid 
+        value={value || ""} // Ensure value is passed to
+        validation={validation}
+        // {...props} 
+        /> 
       Valid
       {icon}
     </Block>
