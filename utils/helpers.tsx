@@ -1,14 +1,21 @@
 import React from "react";
-
+import { RouteProp } from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../types/navigation-types";
 // navigation buttons
 import BtnSearch from "../navigation/BtnSearch";
 import BtnAdd from "../navigation/BtnAdd";
 import BtnNotifications from "../navigation/BtnNotifications";
 import BtnMessage from "../navigation/BtnMessage";
 import BtnOptions from "../navigation/BtnOptions";
-import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
-export const getHeaderTitle = (route) => {
+
+
+
+// Type for route prop
+type HeaderButtonRouteProp = RouteProp<RootStackParamList, keyof RootStackParamList>;
+
+export const getHeaderTitle = (route: HeaderButtonRouteProp): string => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";
 
   switch (routeName) {
@@ -18,10 +25,12 @@ export const getHeaderTitle = (route) => {
       return "Events";
     case "Threads":
       return "Threads";
+    default:
+      return "Home"; // Default case to handle any other routes
   }
 };
 
-export const getHeaderButtons = ({ route }) => {
+export const getHeaderButtons = (route: HeaderButtonRouteProp) => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Threads";
 
   switch (routeName) {
@@ -52,5 +61,7 @@ export const getHeaderButtons = ({ route }) => {
       return {
         headerShown: false,
       };
+    default:
+      return {}; // Default case to handle any other routes
   }
 };
