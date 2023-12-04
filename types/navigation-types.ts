@@ -1,0 +1,25 @@
+export type RootStackParamList = {
+  Home: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  ResetPassword: undefined;
+  Search: undefined;
+  Notifications: undefined;
+  Comments: undefined;
+  NewMessage: undefined;
+  NewEvent: undefined;
+  NewEventMap: undefined;
+  Chat: undefined;
+  Video: undefined;
+  Friends: undefined;
+  Account: undefined;
+  User: undefined;
+  Settings: undefined;
+  EditAccount: undefined;
+  NewStory: undefined;
+  Events: undefined;
+  NewPost: undefined;
+  Threads: undefined;
+  MyProfile: undefined;
+  AiVideo: undefined;
+};

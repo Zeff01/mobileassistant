@@ -9,22 +9,20 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {},
+    "extra": {
+      "favicon": "./assets/favicon.png",
+      "TRANSCRIPTION_API_ENDPOINT": "https://api.openai.com/v1/audio/transcriptions",
+      "SPEECH_API_ENDPOINT": "https://api.openai.com/v1/audio/speech",
+      "COMPLETIONS_API_ENDPOINT": "https://api.openai.com/v1/chat/completions",
+      "OPENAI_API_KEY": " process.env.OPENAI_API_KEY",
+      "CHINGU_BASE_ENDPOINT": "https://api-uat.chingu.fun"
     }
   }
 }
