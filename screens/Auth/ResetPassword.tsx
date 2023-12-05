@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { Utils } from "expo-ui-kit";
 import { StyleSheet, Image, ImageBackground, StatusBar } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "@codler/react-native-keyboard-aware-scroll-view";
 
 import { Block, Button, Card, Text, Input, Icon } from "../../components";
 import { images, icons, COLORS, SIZES } from "../../constants";

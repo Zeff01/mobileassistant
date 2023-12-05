@@ -11,7 +11,7 @@ import Constants from "expo-constants";
 import axios from 'axios';
 
 
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "@codler/react-native-keyboard-aware-scroll-view";
 import { Block, Button, Card, Text, Input, Icon } from "../../components";
 import { images, icons, COLORS, SIZES } from "../../constants";
 

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Defs, LinearGradient, Rect, Svg, Stop } from "react-native-svg";
+import { Defs, LinearGradient, Rect, Svg, Stop, LinearGradientProps } from "react-native-svg";
 
 import { COLORS } from "../constants";
 
@@ -8,7 +8,7 @@ type GradientOverlayProps = {
   width: number | string;
 };
 
-const GradientOverlay: FC<GradientOverlayProps> = ({
+const GradientOverlay: FC<GradientOverlayProps & LinearGradientProps> = ({
   height,
   width,
   ...props

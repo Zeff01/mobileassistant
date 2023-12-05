@@ -4,7 +4,7 @@ import Text from "./Text";
 import Input from "./Input";
 import Button from "./Button";
 import Icon from "./Icon";
-import Modal from "./Modal.tsx";
+import Modal from "./Modal";
 import Story from "./Story";
 import Overlay from "./Overlay";
 import User from "./User";

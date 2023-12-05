@@ -4,7 +4,9 @@ import { Dimensions, Platform } from "react-native";
 const window = Dimensions.get("window");
 const { width: windowWidth, height: windowHeight } = window;
 
-export function getDeviceSize(width, height, platform) {
+type GetDeviceSizeFN = ( width:number,height:number,platform:string) => "xsmall" | "small" | "normal" | "large" | "xlarge"
+
+export const getDeviceSize : GetDeviceSizeFN=(width, height, platform)=> {
   if (platform === "ios") {
     if ((width <= 320 && height <= 480) || (width <= 480 && height <= 320)) {
       // iphone 4 spec
@@ -59,6 +61,7 @@ export function getDeviceSize(width, height, platform) {
 
     return "xsmall";
   }
+  return "small"
 }
 
 // Device metrics https://material.io/devices/
