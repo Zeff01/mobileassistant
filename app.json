@@ -11,18 +11,25 @@
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
-    "android": {},
+    "android": {
+      "package": "com.zeff01.chingumobile"
+    },
     "extra": {
       "favicon": "./assets/favicon.png",
       "TRANSCRIPTION_API_ENDPOINT": "https://api.openai.com/v1/audio/transcriptions",
       "SPEECH_API_ENDPOINT": "https://api.openai.com/v1/audio/speech",
       "COMPLETIONS_API_ENDPOINT": "https://api.openai.com/v1/chat/completions",
       "OPENAI_API_KEY": " process.env.OPENAI_API_KEY",
-      "CHINGU_BASE_ENDPOINT": "https://api-uat.chingu.fun"
+      "CHINGU_BASE_ENDPOINT": "https://api-uat.chingu.fun",
+      "eas": {
+        "projectId": "e89d2712-659b-44fd-99d6-fbf8b7e2a736"
+      }
     }
   }
 }
