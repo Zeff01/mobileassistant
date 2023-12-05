@@ -9,11 +9,11 @@ import BtnNotifications from "../navigation/BtnNotifications";
 import BtnMessage from "../navigation/BtnMessage";
 import BtnOptions from "../navigation/BtnOptions";
 
-
-
-
 // Type for route prop
-type HeaderButtonRouteProp = RouteProp<RootStackParamList, keyof RootStackParamList>;
+type HeaderButtonRouteProp = RouteProp<
+  RootStackParamList,
+  keyof RootStackParamList
+>;
 
 export const getHeaderTitle = (route: HeaderButtonRouteProp): string => {
   const routeName = getFocusedRouteNameFromRoute(route) ?? "Home";

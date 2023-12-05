@@ -36,7 +36,7 @@ const CONTAINER_HEIGHT = (558 * 100) / SIZES.height / RATION[deviceSize];
 const SignIn: React.FC<SignInProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [validEmail, setValidEmail] = useState<boolean | boolean[]>(false);
+  const [validEmail, setValidEmail] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
 
@@ -77,28 +77,38 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
     // }
   };
 
+  // Email validation regex
+  const emailRegex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+  const validateEmail = (email: string) => {
+    if (emailRegex.test(email)) {
+      setValidEmail(true);
+      setEmailError("");
+    } else {
+      setValidEmail(false);
+      setEmailError("Invalid email format");
+    }
+  };
+
+  const validatePassword = (password: string) => {
+    if (password && password.length >= 8) {
+      setPasswordError("");
+    } else {
+      setPasswordError("Password must be at least 8 characters");
+    }
+  };
+
   const handleLogin = useCallback(async () => {
     let isValid = true;
     // Reset errors
     setEmailError("");
     setPasswordError("");
 
-    // Validate email
-    if (!email) {
-      setEmailError("Email is required");
-      isValid = false;
-    } else if (!validEmail) {
-      setEmailError("Invalid email format");
-      isValid = false;
-    }
+    // Validate email and password
+    validateEmail(email);
+    validatePassword(password);
 
-    // Validate password
-    if (!password) {
-      setPasswordError("Password is required");
-      isValid = false;
-    }
-
-    if (!isValid) return;
+    if (!validEmail || passwordError) return;
 
     try {
       const response = await axios.post(`${CHINGU_BASE_ENDPOINT}/auth/login`, {
@@ -113,7 +123,7 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
       // Handle error (e.g., invalid credentials, server error)
       console.error(error);
     }
-  }, [email, validEmail, password, setToken, CHINGU_BASE_ENDPOINT]);
+  }, [email, password, setToken, CHINGU_BASE_ENDPOINT]);
 
   return (
     <KeyboardAwareScrollView
@@ -219,15 +229,13 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
               value={email}
               style={[
                 styles.input,
-                Boolean(email && !validEmail) && {
-                  borderColor: COLORS.error,
-                },
+                !validEmail && email ? { borderColor: COLORS.error } : null,
               ]}
-              validation={true}
               keyboardType="email-address"
-              onChangeText={(e) => setEmail(e.value)}
-              onValidation={(isValid) => setValidEmail(isValid)}
-              pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
+              onChangeText={(e) => {
+                setEmail(e);
+                validateEmail(e);
+              }}
             />
             {emailError && (
               <Text caption error marginBottom={10}>
@@ -239,11 +247,18 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
             <Text caption bold>
               PASSWORD
             </Text>
+
             <Input
               secureTextEntry
               value={password}
-              style={styles.input}
-              onChangeText={({value}) => setPassword(value)}
+              style={[
+                styles.input,
+                passwordError ? { borderColor: COLORS.error } : null,
+              ]}
+              onChangeText={(e) => {
+                setPassword(e); // Directly pass the new value
+                validatePassword(e);
+              }}
             />
             {passwordError && (
               <Text caption error>
@@ -252,7 +267,7 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
             )}
           </Block>
 
-          <Button onPress={() => handleLogin()}>
+          <Button onPress={handleLogin}>
             <Text center bold white>
               Login
             </Text>
@@ -297,5 +312,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
   },
-  button:{}
+  button: {},
 });
