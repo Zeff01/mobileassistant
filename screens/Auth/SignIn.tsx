@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { StyleSheet, Image, ImageBackground, StatusBar } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { KeyboardAwareScrollView } from "@codler/react-native-keyboard-aware-scroll-view";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { Block, Card, Text, Input, Icon, Button } from "../../components";
@@ -36,7 +36,7 @@ const CONTAINER_HEIGHT = (558 * 100) / SIZES.height / RATION[deviceSize];
 const SignIn: React.FC<SignInProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [validEmail, setValidEmail] = useState<boolean>(false);
+  const [validEmail, setValidEmail] = useState<boolean | boolean[]>(false);
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
 
@@ -223,9 +223,9 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
                   borderColor: COLORS.error,
                 },
               ]}
-              validation={validEmail}
+              validation={true}
               keyboardType="email-address"
-              onChangeText={(value) => setEmail(value)}
+              onChangeText={(e) => setEmail(e.value)}
               onValidation={(isValid) => setValidEmail(isValid)}
               pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
             />
@@ -243,7 +243,7 @@ const SignIn: React.FC<SignInProps> = ({ navigation }) => {
               secureTextEntry
               value={password}
               style={styles.input}
-              onChangeText={(value) => setPassword(value)}
+              onChangeText={({value}) => setPassword(value)}
             />
             {passwordError && (
               <Text caption error>
@@ -297,4 +297,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
   },
+  button:{}
 });
